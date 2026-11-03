@@ -47,7 +47,7 @@ function varargout = game(varargin)
 %   result      1xn integer result vector, where n is the total number of
 %                rounds; result(i) represents the current number of human 
 %                player wins in round i
-% The save games are stored in the current folder with filname
+% The save games are stored in the current folder with filename
 % "data_x_y_n.mat", where x = game type, y = policy and n the number of
 % rounds played. If already existing, the filename will be extended to
 % "data_x_y_n_noZZZ.mat", where ZZZ is a three digit number filled with

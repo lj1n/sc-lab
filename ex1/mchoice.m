@@ -34,39 +34,56 @@
 
 % --- Main function ---
 function next = mchoice(ng, i, j)
-% machine next move
-global samplem transm policy
-if(ng == 1)
-    % initialize matrices
-    [samplem,transm]   = initmchoice;
-    next = randi(3);
-else
-    samplem  = updatesamplem(i,j,samplem);
-    transm   = updatetransm(samplem);
+    % machine next move
+    global samplem transm policy
+    if(ng == 1)
+        % initialize matrices
+        [samplem,transm]   = initmchoice;
+        next = randi(3);
+    else
+        samplem  = updatesamplem(i,j,samplem);
+        transm   = updatetransm(samplem);
+        
+        switch policy
+            case 1
+                next = predict1(j,transm);
+            case 2
+                next = predict2(j,transm);
+            case 3
+                next = predict3(j,transm);
+            otherwise
+                error('Bad policy given!')
+        end
     
-    switch policy
-        case 1
-            next = predict1(j,transm);
-        case 2
-            next = predict2(j,transm);
-        case 3
-            next = predict3(j,transm);
-        otherwise
-            error('Bad policy given!')
     end
-    
 end
 
 
 % --- prediction policy 1 ---
 
 %%% Fill in this function! [WS exercise a)]
-function next = predict1()
 % predict player next move
+%j prev. move of hp
+% transm current pred. trans. matrix for hp
 
-next = []; % This is a dummy function
-% HINT: The function should look similar to predict2 and predict3 below
+function next = predict1(j, transm)
+    disp(transm)
+    
+    ran= rand;
 
+    if(ran<=param_a)
+        
+        hnext=mod(j,3) +1;
+    
+    elseif(ran>=param_b)
+        hnext=j;
+    
+    else
+       hnext=mod(j+1,3) +1 ;
+    end
+
+    next = winchoice(hnext) ;
+end
 
 %
 %%% --- DO NOT MODIFY FUNCTIONS BELOW --------------------------------- %%%
