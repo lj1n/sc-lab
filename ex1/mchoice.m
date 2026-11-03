@@ -56,7 +56,7 @@ function next = mchoice(ng, i, j)
         end
     
     end
-end
+
 
 
 % --- prediction policy 1 ---
@@ -67,6 +67,8 @@ end
 % transm current pred. trans. matrix for hp
 
 function next = predict1(j, transm)
+global param_a param_b
+
     disp(transm)
     
     ran= rand;
@@ -83,7 +85,7 @@ function next = predict1(j, transm)
     end
 
     next = winchoice(hnext) ;
-end
+   
 
 %
 %%% --- DO NOT MODIFY FUNCTIONS BELOW --------------------------------- %%%
@@ -120,7 +122,7 @@ function next = predict2(j,transm)
 % predict player next move
 
 transm % display transition matrix
-[hprob,hnext] = max(transm(j,:));
+[hprob,hnext] = max(transm(j,:)); %max returns max elemt of vecotr + idx
 next = winchoice(hnext);
 
 function next = predict3(j,transm)

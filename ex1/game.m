@@ -241,7 +241,7 @@ function pushbuttonscissors_Callback(hObject, eventdata, handles)
 global numrounds
 numrounds = numrounds + 1;
 testChoice(3,handles);
-
+    
 
 % --- Executes on button press in pushbuttonstart.
 function pushbuttonstart_Callback(hObject, eventdata, handles)
