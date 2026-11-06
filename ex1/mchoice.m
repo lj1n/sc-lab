@@ -33,16 +33,22 @@
 %
 
 % --- Main function ---
-function next = mchoice(ng, i, j)
+function next = mchoice(ng, i, j, i_comp,j_comp)
     % machine next move
-    global samplem transm policy
+    global samplem transm policy transm2 samplem2
     if(ng == 1)
         % initialize matrices
         [samplem,transm]   = initmchoice;
+        [samplem2,transm2]   = initmchoice;
+
         next = randi(3);
     else
+        
         samplem  = updatesamplem(i,j,samplem);
         transm   = updatetransm(samplem);
+
+        samplem2 = updatesamplem(i_comp, j_comp, samplem2);
+        transm2 = updatetransm(samplem2);
         
         switch policy
             case 1
@@ -54,6 +60,12 @@ function next = mchoice(ng, i, j)
             otherwise
                 error('Bad policy given!')
         end
+        
+        fprintf("no of rounds: %d\n", ng);
+        fprintf("transm \n");
+        disp(transm);
+        fprintf("transm2 \n");
+        disp(transm2);
     
     end
 
@@ -69,7 +81,7 @@ function next = mchoice(ng, i, j)
 function next = predict1(j, transm)
 global param_a param_b
 
-    disp(transm)
+    %disp(transm)
     
     ran= rand;
 
@@ -86,6 +98,7 @@ global param_a param_b
 
     next = winchoice(hnext) ;
    
+
 
 %
 %%% --- DO NOT MODIFY FUNCTIONS BELOW --------------------------------- %%%

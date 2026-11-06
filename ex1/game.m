@@ -96,7 +96,7 @@ function pushbuttonsave_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % save last transition matrix and anything else you want saved before exit
-global transm results numrounds policy gametype
+global transm results numrounds policy gametype transm2
 filename = strcat('data_',num2str(gametype),'_',...
     num2str(policy),'_',num2str(numrounds));
 
@@ -111,11 +111,11 @@ if exist(sprintf([filename,'.mat']),'file') == 2
     end
     filename = filename_temp;
 end
-save(filename,'transm','results')
-
+save(filename,'transm','transm2','results')
 
 function testChoice(userchoice,handles)
 global history nowins nolosses nodraws results
+%history row choices, colum1 comp. colum2 human
 switch userchoice
     case 1 % rock
         if history(end,1) == 3
@@ -162,10 +162,10 @@ history(end,2) = userchoice;
 
 if norounds == 1
     line([1,1],[0,results],'Parent',handles.axes,'LineWidth',3)
-    next = mchoice(norounds,0,0);
+    next = mchoice(norounds,0,0,0,0);
 else
     plot(handles.axes,1:norounds,results,'LineWidth',3)
-    next = mchoice(norounds,history(end-1,2),history(end,2));   % human
+    next = mchoice(norounds,history(end-1,2),history(end,2), history(end-1,1), history(end,1));   % human+comp
 end
 history = [history;[next,0]];
 
@@ -200,7 +200,7 @@ handles.textround.String = strcat('Round: ',num2str(size(history,1)-1));
 
 handles.axes.Title.String = '#Wins-#Losses vs. #Rounds'; 
 handles.axes.FontSize = 12;
-
+    
 % UIWAIT makes game wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
