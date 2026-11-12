@@ -366,16 +366,24 @@ end
 %%% Main function for the simulation gametype
 function run_sim(handles, htransm)
 global numrounds
+%%global numrounds history transm2   %for option task
+
 
 wbh = waitbar(0,'Simulation in progress');
 if isempty(htransm)
     userchoice = randi(3); % first move is random; no need for a strategy
     testChoice(userchoice,handles);
-    for i=2:numrounds
-        userchoice = gen_human_move(i); % explicit strategy instead of a human move
-        testChoice(userchoice,handles);
-        waitbar(i/numrounds,wbh);
-    end
+
+   
+for i = 2:numrounds
+    
+     %%[userchoice, transm3] = gen_human_move_mod(history(i-1, 1), transm2);
+     %for option task
+    userchoice = gen_human_move(i);
+
+    testChoice(userchoice, handles);
+    waitbar(i / numrounds, wbh);
+end
 else
     userchoice = randi(3); % first move is random; no need for a strategy
     testChoice(userchoice,handles);

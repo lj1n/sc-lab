@@ -61,9 +61,9 @@ function next = mchoice(ng, i, j, i_comp,j_comp)
                 error('Bad policy given!')
         end
         
-        fprintf("no of rounds: %d\n", ng);
-        fprintf("transm \n");
-        disp(transm);
+        fprintf("number of rounds: %d\n", ng);
+        %%fprintf("transm \n");
+        %%disp(transm);
         fprintf("transm2 \n");
         disp(transm2);
     
@@ -81,7 +81,9 @@ function next = mchoice(ng, i, j, i_comp,j_comp)
 function next = predict1(j, transm)
 global param_a param_b
 
-    %disp(transm)
+    
+    fprintf("transm \n");
+    disp(transm)
     
     ran= rand;
 

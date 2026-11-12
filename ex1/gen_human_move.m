@@ -8,28 +8,3 @@ function hmove = gen_human_move( rno )
 hmove = mod(rno,3)+1;   % We dare you to think of a simpler rule... :)
 
 end
-function hmove = random_move()
-        ran= rand;
-
-        if(ran<=1/3)
-            hmove=1;
-
-        elseif(ran>=2/3)
-            hmove=2;
-
-        else
-            hmove=3;
-        end
-
-
-end
-
-
-function hmove = cycle_move()
-
-    sequence = [1 1 2 1 3 2 2 3 3];
-
-    hmove = sequence(mod(rno-1,9)+1);
-
-end
-
